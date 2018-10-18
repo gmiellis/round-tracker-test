@@ -1,86 +1,71 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
-import Typography from '@material-ui/core/Typography';
-import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
-import withStyles from '@material-ui/core/styles/withStyles';
-import Button from '@material-ui/core/Button';
-import FormControl from '@material-ui/core/FormControl';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import TextField from '@material-ui/core/TextField';
-import Input from '@material-ui/core/Input';
-import InputLabel from '@material-ui/core/InputLabel';
+import NavBar from './navbar';
 
-const styles = theme => ({
-  paper2: {
-    width: '90%',
-    marginTop: theme.spacing.unit * 2,
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme.spacing.unit * 3}px`,
-  },
-  // form: {
-  //   width: '80%', // Fix IE11 issue.
-  //   marginTop: theme.spacing.unit,
-  // },
-  submit: {
-    marginTop: theme.spacing.unit * 1,
-  },
-  container: {
-    display: 'flex',
-    flexWrap: 'wrap',
-  },
-  textField: {
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit,
-  },
-});
 
 class Contacts extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
-      contacts: [],
       name: '',
+      // contacts: [],
     };
-    this.handleAddContact = this.handleAddContact.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
   }
 
-  handleAddContact = event => {
-    event.preventDefault();
-    console.log(this.state.name);
-  };
+  handleInputChange(event) {
+    const { name, value } = event.target;
 
-  handleFieldChange = event => {
-    this.setState({
-      [event.target.name]: event.target.value,
-    });
-  };
+    this.setState({ [name]: value });
+  }
+
 
   render() {
-    const { classes } = this.props;
+    const newContact = this.state;
     return (
-      <Grid container justify="center">
-        <Paper className={classes.paper2}>
-          <Typography variant="title">
-              Contacts
-          </Typography>
-          <form onSubmit={this.handleAddContact}>
+
+      <div>
+        <NavBar />
+        <h1>Contacts</h1>
+        <p>{this.props.user.firstName}</p>
+        <p>
+          enter your friends details below and add them to your contacts list.
+        </p>
+        <div>
+          <label>
+            Contact Name:
             <input
+              type="text"
               name="name"
               value={this.state.name}
-              onChange={this.handleFieldChange}
+              onChange={this.handleInputChange}
             />
-            <button className="addpropbutton" type="submit">
-            Add to Contact List
-            </button>
-          </form>
-        </Paper>
-      </Grid>
+          </label>
+        </div>
+        <div>
+          <button
+            onClick={() => this.props.onClick(newContact)}
+          >
+          Add Contact
+          </button>
+        </div>
+        <div>
+
+          {/* {this.state.contacts.map(name => (
+            <div key={name}>
+              {name}
+            </div>
+          ))} */}
+        </div>
+      </div>
     );
   }
 }
 
-export default withStyles(styles)(Contacts);
+export default Contacts;
+
+ // const newContact = this.state.name;
+    //
+    // console.log(this.state);
+    // this.setState({ contacts: [...this.state.contacts, newContact] });

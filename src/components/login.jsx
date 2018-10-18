@@ -1,88 +1,79 @@
-import React from 'react';
-import Typography from '@material-ui/core/Typography';
-import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
-import withStyles from '@material-ui/core/styles/withStyles';
-import Button from '@material-ui/core/Button';
-import FormControl from '@material-ui/core/FormControl';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Input from '@material-ui/core/Input';
-import InputLabel from '@material-ui/core/InputLabel';
+import React, { Component } from 'react';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
 
-const styles = theme => ({
-  paper1: {
-    width: '20%',
-    marginTop: theme.spacing.unit * 3,
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme.spacing.unit * 3}px`,
-  },
-  paper2: {
-    width: '90%',
-    marginTop: theme.spacing.unit * 2,
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme.spacing.unit * 3}px`,
-  },
-  form: {
-    width: '80%', // Fix IE11 issue.
-    marginTop: theme.spacing.unit,
-  },
-  submit: {
-    marginTop: theme.spacing.unit * 3,
-  },
-});
+class Login extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: '',
+      password: '',
+      errorMessage: '',
+    };
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleLogin = this.handleLogin.bind(this);
+  }
 
-function Login(props) {
-  const { classes } = props;
-  return (
-    <Grid container justify="center">
-      {/* <Paper className={classes.paper1}>
-      <i className="material-icons">local_drink</i>
-      </Paper> */}
-      <Paper className={classes.paper2}>
-        <Typography variant="title">
-            Login
-        </Typography>
-        <form className={classes.form}>
-          <FormControl margin="normal" required fullWidth>
-            <InputLabel htmlFor="email">Email Address</InputLabel>
-            <Input id="email" name="email" autoComplete="email" autoFocus />
-          </FormControl>
-          <FormControl margin="normal" required fullWidth>
-            <InputLabel htmlFor="password">Password</InputLabel>
-            <Input
-              name="password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
+  handleInputChange(event) {
+    const { name, value } = event.target;
+
+    this.setState({ [name]: value });
+  }
+
+  handleLogin() {
+    axios.post('http://127.0.0.1:8080/auth/login', {
+      email: this.state.email,
+      password: this.state.password,
+    })
+      .then((response) => {
+        this.props.onLogin(response.data);
+        this.props.history.push('/home');
+        console.log(response.data);
+      })
+      .catch((error) => {
+        this.setState({
+          errorMessage: error.response.data.message,
+        });
+
+      });
+  }
+
+  render() {
+    return (
+      <div>
+        <h1>Login</h1>
+        <div>
+          <label htmlFor="email">
+            Email:
+            <input
+              type="email"
+              name="email"
+              value={this.state.email}
+              onChange={this.handleInputChange}
             />
-          </FormControl>
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-          >
-            Login
-          </Button>
-          <Button
-            varient="text"
-          >
-            Register
-          </Button>
-        </form>
-      </Paper>
-    </Grid>
-  );
+          </label>
+        </div>
+        <div>
+          <label htmlFor="email">
+            Password:
+            <input
+              type="text"
+              name="password"
+              value={this.state.password}
+              onChange={this.handleInputChange}
+            />
+          </label>
+        </div>
+        <div>
+          <button onClick={this.handleLogin}>Login</button> or <Link to="/register">Sign Up</Link>
+        </div>
+        {
+          this.state.errorMessage &&
+          <div><span>{this.state.errorMessage}</span></div>
+        }
+      </div>
+    );
+  }
 }
 
-export default withStyles(styles)(Login);
+export default Login;

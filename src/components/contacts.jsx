@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 
 import NavBar from './navbar';
+import ContactCard from './contactCard';
 
 
 class Contacts extends Component {
@@ -50,19 +51,16 @@ class Contacts extends Component {
           Add Contact
           </button>
         </div>
-        {/* <div>
-          {
-            this.props.user.contacts && (
-              <div>
-                {this.props.user.contacts.map(name => (
-                  <div>
-                    {name}
-                  </div>
-                ))}
-              </div>
-            )
-          }
-        </div> */}
+        <div>
+          {this.props.user.contacts.map(contact => (
+            <div key={contact._id}>
+              <ContactCard
+                key={contact._id}
+                name={contact.name}
+              />
+            </div>
+          ))}
+        </div>
       </div>
     );
   }

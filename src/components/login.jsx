@@ -21,6 +21,7 @@ class Login extends Component {
   }
 
   handleLogin() {
+    event.preventDefault();
     axios.post('http://127.0.0.1:8080/auth/login', {
       email: this.state.email,
       password: this.state.password,
@@ -28,7 +29,7 @@ class Login extends Component {
       .then((response) => {
         this.props.onLogin(response.data);
         this.props.history.push('/home');
-        console.log(response.data);
+        // console.log(response.data);
       })
       .catch((error) => {
         this.setState({

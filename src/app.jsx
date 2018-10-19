@@ -45,8 +45,10 @@ class App extends Component {
     })
       .then((response) => {
         this.setState({
-          user: response.data.user,
+          contacts: response.data,
         });
+        console.log(response.data);
+        console.log(this.state.user);
       });
   }
 
@@ -91,7 +93,7 @@ class App extends Component {
                 onClick={this.handleContactUpdate}
               />
             ) : (
-              <Redirect to="/login" />
+              <Redirect to="/home" />
             )
             }
           />

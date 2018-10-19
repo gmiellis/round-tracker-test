@@ -2,6 +2,7 @@ const User = require('../models/user');
 
 
 exports.update = (req, res) => {
+  console.log(req.body);
   User.updateOne(
     { _id: req.body.user._id },
     { contacts: req.body.user.contacts },
@@ -9,7 +10,7 @@ exports.update = (req, res) => {
       if (err) {
         res.json('summit went wrong');
       }
-      res.json(user);
+      res.json(user.contacts);
     }
   );
 };

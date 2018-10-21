@@ -67,22 +67,3 @@ class Contacts extends Component {
 }
 
 export default Contacts;
-
-
- // const newContact = this.state.name;
-    //
-    // console.log(this.state);
-    // this.setState({ contacts: [...this.state.contacts, newContact] });
-{/* {
-          this.props.user.contacts.length > 0
-            ? null
-            : (
-              <div>
-                {this.props.user.contacts.map(name => (
-                  <div key={name}>
-                    {name}
-                  </div>
-                ))}
-              </div>
-            )
-          } */}

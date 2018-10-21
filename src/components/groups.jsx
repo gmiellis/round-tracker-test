@@ -1,33 +1,67 @@
 import React, { Fragment } from 'react';
-import axios from 'axios';
 import NavBar from './navbar';
-
-// import ContactCard from './contactCard';
 
 class Groups extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-
-      contacts: [
-        {
-          name: 'paul',
-          _id: 1,
-        },
-        {
-          name: 'john',
-          _id: 2,
-        },
-      ],
       groupName: '',
+      members: [],
     };
-    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+    this.handleInput = this.handleInput.bind(this);
   }
 
-  handleInputChange(event) {
+  handleChange(e) {
+    const { checked, value } = e.target;
+    let members = null;
+    if (checked) {
+      members = [...this.state.members, value];
+    } else {
+      members = this.state.members.filter(el => el !== value);
+    }
+    this.setState({ members }, () => console.log(this.state.members));
+  }
+
+  handleInput(event) {
     const { name, value } = event.target;
 
     this.setState({ [name]: value });
+  }
+
+  handleClick() {
+    const members = this.state.members.map(id => {
+      return this.props.user.contacts.find(c => c._id == id);
+    });
+    // console.log(members);
+
+    this.setState({
+      members: [...this.state.members, members],
+    });
+    const groupName = this.state.groupName;
+    // const members = this.state.members;
+    // console.log(groupName);
+    // console.log(members);
+    const groupObject = { groupName, members };
+    // console.log(groupObject);
+
+    if (this.props.user.groups.length < 1) {
+      this.setState({
+        groups: [...this.props.user.groups, groupObject],
+        groupName: '',
+        members: [],
+      });
+      // console.log(this.state);
+    } else {
+      this.setState({
+        groups: [...this.props.user.groups, groupObject],
+        groupName: '',
+        members: [],
+      });
+      // console.log(this.state);
+
+    }
   }
 
   render() {
@@ -35,42 +69,71 @@ class Groups extends React.Component {
       <Fragment>
         Group Page
         <NavBar />
-        <form>
-
-          Add a group name and choose its members from the drop down
-
+        <div className="contacts">
+        Contacts
           <div>
             <input
-              name="groupName"
-              type="text"
               value={this.state.groupName}
-              onChange={this.handleInputChange}
+              type="text"
+              name="groupName"
+              onChange={this.handleInput}
             />
           </div>
+          {
+            this.props.user.contacts.map(({ _id, name }) => {
+              return (
+                <div key={_id}>
+                  <input
+                    value={_id}
+                    type="checkbox"
+                    onChange={this.handleChange}
+                  />{name}
+                </div>
+              );
+            })
+          }
+          <button
+            type="submit"
+            onClick={() => { this.handleClick(); this.props.onClick(newGroup); }}
+          >
+          Add names
+          </button>
+        </div>
+        <div className="newGroup">
+          {/* {this.state.groups.groupName} */}
+        </div>
 
-          <div>
-            <select ref="userInput" defaultValue="">
-              <option value="" disabled>Members</option>
-              {
-                this.state.contacts.map(contact => (
-                  <option
-                    key={contact._id}
-                    value={contact.name}
-                  >
-                    {contact.name}
-                  </option>
-                ))}
-              }
-            </select>
-          </div>
-
-          <div>
-            {this.state.groupName}
-          </div>
-        </form>
       </Fragment>
     );
   }
 }
 
 export default Groups;
+
+      // contacts: [
+      //   {
+      //     name: 'paul',
+      //     _id: 1,
+      //   },
+      //   {
+      //     name: 'john',
+      //     _id: 2,
+      //   },
+      //   {
+      //     name: 'jane',
+      //     _id: 3,
+      //   },
+      //   {
+      //     name: 'frank',
+      //     _id: 4,
+      //   },
+      //   {
+      //     name: 'terry',
+      //     _id: 5,
+      //   },
+      //   {
+      //     name: 'lando',
+      //     _id: 6,
+      //   },
+      // ],
+      // groups: [],

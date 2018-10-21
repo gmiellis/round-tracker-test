@@ -52,6 +52,24 @@ class App extends Component {
       });
   }
 
+  handleGroupUpdate(newGroup) {
+    const newUser = { ...this.state.user };
+    const newGroups = [...newUser.groups];
+    newGroups.push(newGroup);
+    newUser.groups = newGroups;
+    this.setState({ user: newUser });
+    axios.put('http://127.0.0.1:8080/groups', {
+      user: this.state.user,
+    })
+      .then((response) => {
+        this.setState({
+          groups: response.data,
+        });
+        console.log(response.data);
+        console.log(this.state.user);
+      });
+  }
+
   render() {
     return (
       <div>
@@ -101,7 +119,11 @@ class App extends Component {
             exact
             path="/groups"
             render={props => this.state.user ? (
-              <Groups {...props} user={this.state.user} />
+              <Groups
+                {...props}
+                user={this.state.user}
+                onClick={this.handleGroupUpdate}
+              />
             ) : (
               <Redirect to="/login" />
             )

@@ -17,6 +17,10 @@ app.use('/users', users);
 app.use('/contacts', users);
 app.use('/groups', users);
 
+// mongoose.set('debug', (collectionName, method, query, doc) => {
+//   console.log(`${collectionName}.${method}`, JSON.stringify(query), doc);
+// });
+
 
 mongoose.connect(process.env.DATABASE_CONN, () => {
   console.log('connected to database');

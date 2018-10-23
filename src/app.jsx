@@ -22,7 +22,6 @@ class App extends Component {
     this.state = {
       user: null,
     };
-    // this.state.dataLoaded = { dataLoaded: false };
     this.handleLogin = this.handleLogin.bind(this);
     this.handleContactUpdate = this.handleContactUpdate.bind(this);
     this.handleGroupUpdate = this.handleGroupUpdate.bind(this);
@@ -44,11 +43,13 @@ class App extends Component {
     newContacts.push(newContact);
     newUser.contacts = newContacts;
     // this.setState({ user: newUser });
-    // // console.log(newContacts);
+    console.log(newUser);
     axios.put('http://127.0.0.1:8080/contacts', {
       user: newUser,
     })
       .then((response) => {
+        console.log(response);
+
         this.setState({
           user: response.data,
         });

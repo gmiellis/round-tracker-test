@@ -29,7 +29,7 @@ class Contacts extends Component {
       <div>
         <NavBar />
         <h1>Contacts</h1>
-        <p>{this.props.user.firstName}</p>
+        <p>{this.props.firstName}</p>
         <p>
           enter your friends details below and add them to your contacts list.
         </p>
@@ -52,7 +52,8 @@ class Contacts extends Component {
           </button>
         </div>
         <div>
-          {this.props.user.contacts.map(contact => (
+          {
+          this.props.user.contacts.map(contact => (
             <div key={contact._id}>
               <ContactCard
                 key={contact._id}

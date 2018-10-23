@@ -33,7 +33,7 @@ class Register extends Component {
         this.props.history.push('/login');
       });
 
-    console.log(this.state);
+    // console.log(this.state);
   }
 
   render() {

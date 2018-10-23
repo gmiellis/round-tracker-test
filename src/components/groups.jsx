@@ -7,6 +7,7 @@ class Groups extends React.Component {
     this.state = {
       groupName: '',
       members: [],
+      groups: [],
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
@@ -38,33 +39,31 @@ class Groups extends React.Component {
 
     this.setState({
       members: [...this.state.members, members],
+      groups: [],
     });
     const groupName = this.state.groupName;
-    // const members = this.state.members;
-    // console.log(groupName);
-    // console.log(members);
     const groupObject = { groupName, members };
     // console.log(groupObject);
-
-    if (this.props.user.groups.length < 1) {
-      this.setState({
-        groups: [...this.props.user.groups, groupObject],
-        groupName: '',
-        members: [],
-      });
-      // console.log(this.state);
-    } else {
-      this.setState({
-        groups: [...this.props.user.groups, groupObject],
-        groupName: '',
-        members: [],
-      });
-      // console.log(this.state);
-
-    }
+    // if (this.props.user.groups.length < 1) {
+    this.setState({
+      // groups: [...this.state.groups, groupObject],
+      groupName: '',
+      members: [],
+    });
+    // console.log(this.state.groups);
+    // } else {
+    //   this.setState({
+    //     groups: [...this.state.groups, groupObject],
+    //     groupName: '',
+    //     members: [],
+    //   });
+    //   console.log(this.state);
+    // }
+    this.props.onClick(groupObject);
   }
 
   render() {
+    // const newGroup = this.state.groups;
     return (
       <Fragment>
         Group Page
@@ -94,7 +93,11 @@ class Groups extends React.Component {
           }
           <button
             type="submit"
-            onClick={() => { this.handleClick(); this.props.onClick(newGroup); }}
+            onClick={
+              () => {
+                this.handleClick();
+                // this.props.onClick(newGroup);
+              }}
           >
           Add names
           </button>

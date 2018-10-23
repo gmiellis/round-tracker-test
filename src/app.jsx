@@ -22,51 +22,63 @@ class App extends Component {
     this.state = {
       user: null,
     };
+    // this.state.dataLoaded = { dataLoaded: false };
     this.handleLogin = this.handleLogin.bind(this);
     this.handleContactUpdate = this.handleContactUpdate.bind(this);
+    this.handleGroupUpdate = this.handleGroupUpdate.bind(this);
   }
 
   handleLogin(user) {
-    this.setState({ user });
+    this.setState({
+      user,
+    });
+    // console.log(this.state);
   }
 
   handleContactUpdate(newContact) {
+    // console.log(newContact);
     const newUser = { ...this.state.user };
     // console.log(newUser);
     const newContacts = [...newUser.contacts];
     // console.log(newContacts);
     newContacts.push(newContact);
     newUser.contacts = newContacts;
-    this.setState({ user: newUser });
-    // console.log(this.state.user);
-
+    // this.setState({ user: newUser });
+    // // console.log(newContacts);
     axios.put('http://127.0.0.1:8080/contacts', {
-      user: this.state.user,
+      user: newUser,
     })
       .then((response) => {
         this.setState({
-          contacts: response.data,
+          user: response.data,
         });
-        console.log(response.data);
-        console.log(this.state.user);
       });
   }
 
+
   handleGroupUpdate(newGroup) {
+    // console.log(newGroup);
     const newUser = { ...this.state.user };
+    // console.log(newUser);
     const newGroups = [...newUser.groups];
+    // console.log(newGroups);
     newGroups.push(newGroup);
+    // console.log(newGroups);
     newUser.groups = newGroups;
-    this.setState({ user: newUser });
+    // console.log(newUser);
+    // this.setState({
+
+    // })
+    // this.setState({ user: newUser });
+    console.log(newUser);
     axios.put('http://127.0.0.1:8080/groups', {
-      user: this.state.user,
+      user: newUser,
     })
       .then((response) => {
+        console.log(response);
         this.setState({
-          groups: response.data,
+          user: response.data,
         });
-        console.log(response.data);
-        console.log(this.state.user);
       });
   }
 
@@ -111,9 +123,8 @@ class App extends Component {
                 onClick={this.handleContactUpdate}
               />
             ) : (
-              <Redirect to="/home" />
-            )
-            }
+              <Redirect to="/login" />
+            )}
           />
           <Route
             exact

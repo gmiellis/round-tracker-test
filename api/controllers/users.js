@@ -24,6 +24,7 @@ const create = (req, res) => {
   user.save()
     .then((data) => {
       res.status(201).json(data);
+      // console.log(data);
     })
     .catch((error) => {
       console.log(error);

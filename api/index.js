@@ -15,6 +15,7 @@ app.use(cors());
 app.use('/auth', auth);
 app.use('/users', users);
 app.use('/contacts', users);
+app.use('/groups', users);
 
 
 mongoose.connect(process.env.DATABASE_CONN, () => {

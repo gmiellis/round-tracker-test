@@ -2,11 +2,6 @@ import React, { Component } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import axios from 'axios';
 
-// import AppBar from '@material-ui/core/AppBar';
-// // import Typography from '@material-ui/core/Typography';
-// import Toolbar from '@material-ui/core/Toolbar';
-// import CssBaseline from '@material-ui/core/CssBaseline';
-
 import Landing from './components/landing';
 import Home from './components/home';
 import Login from './components/login';
@@ -42,13 +37,12 @@ class App extends Component {
     // console.log(newContacts);
     newContacts.push(newContact);
     newUser.contacts = newContacts;
-    // this.setState({ user: newUser });
-    console.log(newUser);
+    // console.log(newUser);
     axios.put('http://127.0.0.1:8080/contacts', {
       user: newUser,
     })
       .then((response) => {
-        console.log(response);
+        // console.log(response);
 
         this.setState({
           user: response.data,
@@ -67,16 +61,12 @@ class App extends Component {
     // console.log(newGroups);
     newUser.groups = newGroups;
     // console.log(newUser);
-    // this.setState({
-
-    // })
-    // this.setState({ user: newUser });
     console.log(newUser);
     axios.put('http://127.0.0.1:8080/groups', {
       user: newUser,
     })
       .then((response) => {
-        console.log(response);
+        // console.log(response);
         this.setState({
           user: response.data,
         });

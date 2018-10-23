@@ -1,8 +1,6 @@
 import React from 'react';
 import NavBar from './navbar';
 
-// import Paper from '@material-ui/core/Paper';
-
 const Home = (props) => (
   <div>
     <NavBar />

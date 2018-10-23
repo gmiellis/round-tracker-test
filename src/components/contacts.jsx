@@ -10,7 +10,6 @@ class Contacts extends Component {
     super(props);
     this.state = {
       name: '',
-      // contacts: [],
     };
     this.handleInputChange = this.handleInputChange.bind(this);
   }

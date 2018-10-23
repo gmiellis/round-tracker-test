@@ -44,26 +44,14 @@ class Groups extends React.Component {
     const groupName = this.state.groupName;
     const groupObject = { groupName, members };
     // console.log(groupObject);
-    // if (this.props.user.groups.length < 1) {
     this.setState({
-      // groups: [...this.state.groups, groupObject],
       groupName: '',
       members: [],
     });
-    // console.log(this.state.groups);
-    // } else {
-    //   this.setState({
-    //     groups: [...this.state.groups, groupObject],
-    //     groupName: '',
-    //     members: [],
-    //   });
-    //   console.log(this.state);
-    // }
     this.props.onClick(groupObject);
   }
 
   render() {
-    // const newGroup = this.state.groups;
     return (
       <Fragment>
         Group Page
@@ -96,7 +84,6 @@ class Groups extends React.Component {
             onClick={
               () => {
                 this.handleClick();
-                // this.props.onClick(newGroup);
               }}
           >
           Add names
@@ -112,31 +99,3 @@ class Groups extends React.Component {
 }
 
 export default Groups;
-
-      // contacts: [
-      //   {
-      //     name: 'paul',
-      //     _id: 1,
-      //   },
-      //   {
-      //     name: 'john',
-      //     _id: 2,
-      //   },
-      //   {
-      //     name: 'jane',
-      //     _id: 3,
-      //   },
-      //   {
-      //     name: 'frank',
-      //     _id: 4,
-      //   },
-      //   {
-      //     name: 'terry',
-      //     _id: 5,
-      //   },
-      //   {
-      //     name: 'lando',
-      //     _id: 6,
-      //   },
-      // ],
-      // groups: [],

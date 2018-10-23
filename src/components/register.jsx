@@ -21,8 +21,6 @@ class Register extends Component {
   }
 
   handleRegister() {
-    // const name = this.state.firstName;
-    // this.setState({ contacts: [...this.state.contacts, name] });
     axios.post('http://127.0.0.1:8080/users', {
       firstName: this.state.firstName,
       lastName: this.state.lastName,

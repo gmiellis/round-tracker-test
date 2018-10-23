@@ -9,6 +9,5 @@ router.route('/')
   .post(UsersController.create)
   .get(UsersController.index)
   .put(ContactsController.update);
-  // .put(GroupsController.update);
 
 module.exports = router;

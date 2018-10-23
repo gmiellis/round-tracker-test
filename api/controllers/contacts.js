@@ -1,7 +1,7 @@
 const User = require('../models/user');
 
 exports.update = (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
   User.findByIdAndUpdate(
     req.body.user._id,
     req.body.user,

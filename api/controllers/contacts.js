@@ -4,7 +4,7 @@ exports.update = (req, res) => {
   // console.log(req.body);
   User.findByIdAndUpdate(
     req.body.user._id,
-    req.body.user,
+    { contacts: req.body.user.contacts, groups: req.body.user.groups },
     { new: true },
     (err, user) => {
       if (err) return res.status(500).send(err);

@@ -39,10 +39,10 @@ class App extends Component {
     newUser.contacts = newContacts;
     // console.log(newUser);
     axios.put('http://127.0.0.1:8080/contacts', {
-      user: newUser,
+      user: { _id: newUser._id, contacts: newContacts, groups: newUser.groups },
     })
       .then((response) => {
-        // console.log(response);
+        console.log(response.date);
 
         this.setState({
           user: response.data,
@@ -63,7 +63,7 @@ class App extends Component {
     // console.log(newUser);
     console.log(newUser);
     axios.put('http://127.0.0.1:8080/groups', {
-      user: newUser,
+      user: { _id: newUser._id, contacts: newUser.contacts, groups: newGroups },
     })
       .then((response) => {
         // console.log(response);

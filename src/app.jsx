@@ -9,6 +9,9 @@ import Register from './components/register';
 import NavBar from './components/navbar';
 import Contacts from './components/contacts';
 import Groups from './components/groups';
+import ExistingGroups from './components/existingGroups';
+import ExistingGroups2 from './components/existingGroups2';
+
 
 
 class App extends Component {
@@ -26,7 +29,7 @@ class App extends Component {
     this.setState({
       user,
     });
-    // console.log(this.state);
+    console.log(this.state);
   }
 
   handleContactUpdate(newContact) {
@@ -125,6 +128,32 @@ class App extends Component {
                 {...props}
                 user={this.state.user}
                 onClick={this.handleGroupUpdate}
+              />
+            ) : (
+              <Redirect to="/login" />
+            )
+            }
+          />
+          <Route
+            exact
+            path="/existingGroups"
+            render={props => this.state.user ? (
+              <ExistingGroups
+                {...props}
+                user={this.state.user}
+              />
+            ) : (
+              <Redirect to="/login" />
+            )
+            }
+          />
+          <Route
+            exact
+            path="/existingGroups2"
+            render={props => this.state.user ? (
+              <ExistingGroups2
+                {...props}
+                user={this.state.user}
               />
             ) : (
               <Redirect to="/login" />

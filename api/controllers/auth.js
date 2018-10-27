@@ -10,6 +10,7 @@ const login = (req, res) => {
       } else {
         if (user.validatePassword(req.body.password)) {
           res.status(200).json(user);
+          console.log(user);
         } else {
           res.status(401).json({
             message: 'The email/password is incorrect',

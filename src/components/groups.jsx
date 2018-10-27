@@ -90,7 +90,7 @@ class Groups extends React.Component {
           </button>
         </div>
         <div className="newGroup">
-          {/* {this.state.groups.groupName} */}
+
         </div>
 
       </Fragment>

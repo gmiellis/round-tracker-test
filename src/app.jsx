@@ -12,8 +12,6 @@ import Groups from './components/groups';
 import ExistingGroups from './components/existingGroups';
 import ExistingGroups2 from './components/existingGroups2';
 
-
-
 class App extends Component {
   constructor(props) {
     super(props);
@@ -22,6 +20,7 @@ class App extends Component {
     };
     this.handleLogin = this.handleLogin.bind(this);
     this.handleContactUpdate = this.handleContactUpdate.bind(this);
+    this.handleCreateGroup = this.handleCreateGroup.bind(this);
     this.handleGroupUpdate = this.handleGroupUpdate.bind(this);
   }
 
@@ -54,7 +53,7 @@ class App extends Component {
   }
 
 
-  handleGroupUpdate(newGroup) {
+  handleCreateGroup(newGroup) {
     // console.log(newGroup);
     const newUser = { ...this.state.user };
     // console.log(newUser);
@@ -70,6 +69,23 @@ class App extends Component {
     })
       .then((response) => {
         // console.log(response);
+        this.setState({
+          user: response.data,
+        });
+      });
+  }
+
+  handleGroupUpdate(updatedGroup) {
+    // spreads user object
+    // console.log(updatedGroup);
+    const newUser = { ...this.state.user };
+    newUser.groups = updatedGroup;
+    // console.log(newUser);
+    axios.put('http://127.0.0.1:8080/existingGroups2', {
+      user: { _id: newUser._id, contacts: newUser.contacts, groups: newUser.groups },
+    })
+      .then((response) => {
+      // console.log(response);
         this.setState({
           user: response.data,
         });
@@ -127,7 +143,7 @@ class App extends Component {
               <Groups
                 {...props}
                 user={this.state.user}
-                onClick={this.handleGroupUpdate}
+                onClick={this.handleCreateGroup}
               />
             ) : (
               <Redirect to="/login" />
@@ -154,6 +170,7 @@ class App extends Component {
               <ExistingGroups2
                 {...props}
                 user={this.state.user}
+                onClick={this.handleGroupUpdate}
               />
             ) : (
               <Redirect to="/login" />

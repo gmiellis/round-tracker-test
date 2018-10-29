@@ -16,6 +16,7 @@ app.use('/auth', auth);
 app.use('/users', users);
 app.use('/contacts', users);
 app.use('/groups', users);
+app.use('/existingGroups2', users);
 
 mongoose.connect(process.env.DATABASE_CONN, () => {
   console.log('connected to database');
